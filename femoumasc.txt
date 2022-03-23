@@ -1,0 +1,6 @@
+nome=input("Qual é o seu nome?")
+sexo=int(input("digite seu sexo: [1] para masculino e [2] para feminino"))
+if sexo == 1:
+    print(f"{nome} é do sexo masculino")
+else:
+    print(f"{nome} é do sexo feminino")   
