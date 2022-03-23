@@ -1,0 +1,25 @@
+compra=input("O que você deseja comprar? frutas ou legumes? ")
+if compra == "frutas":
+    escolhafrut=input("Qual fruta você quer? banana, manga ou laranja? ")
+    if escolhafrut == "banana":
+        quant=int(input("Quantas você quer? "))
+    elif escolhafrut == "manga":
+        quant=int(input("Quantas você quer? "))
+    elif escolhafrut == "laranja":
+        quant=int(input("Quantas você quer? "))
+    if quant > 1:
+        print(f"voce recebeu {quant} {escolhafrut}s")
+    else: 
+        print(f"voce recebeu {quant} {escolhafrut}")
+else:
+    escolhaleg = input("Qual legume você quer? cenoura, repolho ou pepino? ")
+    if escolhaleg == "cenoura":
+        quant=int(input("Quantas você quer? "))
+    elif escolhaleg == "repolho":
+        quant=int(input("Quantas você quer? "))
+    elif escolhaleg == "pepino":
+        quant=int(input("Quantas você quer? "))
+    if quant > 1:
+        print(f"voce recebeu {quant} {escolhaleg}s")
+    else: 
+        print(f"voce recebeu {quant} {escolhaleg}")
