@@ -1,0 +1,3 @@
+sal = int(input("Digite quanto você ganha por hora:"))
+hor = int(input("Digite quantas horas você trabalha por mês: "))
+print(f"Seu salário é: {sal*hor} reais")

@@ -1,0 +1,3 @@
+num1 = int(input("Digite a medida do lado do quadrado:"))
+area = num1**2
+print(f"A área do quadrado é {area} e o dobro é {area*2}")

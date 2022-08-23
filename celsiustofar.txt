@@ -1,0 +1,3 @@
+temp = int(input("Digite a temperatura em celsius: "))
+far = (9*temp/5)+32
+print(f"A temperatura em celsius é: {far:,.2f}")
