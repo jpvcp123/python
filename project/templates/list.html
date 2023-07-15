@@ -44,106 +44,36 @@ table th {
         <div class="col-12 mb-3 mb-lg-5">
             <div class="position-relative card table-nowrap table-card">
                 <div class="card-header align-items-center">
-                    <h5 class="mb-0">Latest Transactions</h5>
-                    <p class="mb-0 small text-muted">1 Pending</p>
+                    <h3 class="mb-0">Tabela de clientes</h3>
                 </div>
                 <div class="table-responsive">
                     <table class="table mb-0">
                         <thead class="small text-uppercase bg-body text-muted">
                             <tr>
-                                <th>Transaction ID</th>
-                                <th>Date</th>
-                                <th>Name</th>
-                                <th>Amount</th>
-                                <th>Status</th>
+                                <th>ID</th>
+                                <th>Nome</th>
+                                <th>Telefone</th>
+                                <th>CPF</th>
+                                <th>E-mail</th>
+                                <th>Excluir</th>
+                                <th>Atualizar</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr class="align-middle">
-                                <td>
-                                    #57473829
-                                </td>
-                                <td>13 Sep, 2021</td>
-                                <td>Renee Sims</td>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <span><i class="fa fa-arrow-up" aria-hidden="true"></i></span>
-                                        <span>$145</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <span class="badge fs-6 fw-normal bg-tint-success text-success">Completed</span>
-                                </td>
-                            </tr>
-                            <tr class="align-middle">
-                                <td>
-                                    #012458780
-                                </td>
-                                <td>19 Aug, 2021</td>
-                                <td>Edith Koenig</td>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <span><i class="fa fa-arrow-down" aria-hidden="true"></i></span>
-                                        <span>$641.64</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <span class="badge fs-6 fw-normal bg-tint-warning text-warning">Pending</span>
-                                </td>
-                            </tr>
-                            <tr class="align-middle">
-                                <td>
-                                    #76444326
-                                </td>
-                                <td>03 April, 2021</td>
-                                <td>Carrie Blount</td>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <span><i class="fa fa-arrow-down" aria-hidden="true"></i></span>
-                                        <span>$12,457</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <span class="badge fs-6 fw-normal bg-tint-success text-success">Completed</span>
-                                </td>
-                            </tr>
-                            <tr class="align-middle">
-                                <td>
-                                    #12498745
-                                </td>
-                                <td>15 March, 2021</td>
-                                <td>Ander Durham</td>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <span><i class="fa fa-arrow-down" aria-hidden="true"></i></span>
-                                        <span>$785</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <span class="badge fs-6 fw-normal bg-tint-success text-success">Completed</span>
-                                </td>
-                            </tr>
-                            <tr class="align-middle">
-                                <td>
-                                    #87444654
-                                </td>
-                                <td>23 Jan, 2021</td>
-                                <td>Netflix Inc.</td>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <span><i class="fa fa-arrow-up" aria-hidden="true"></i></span>
-                                        <span>$199</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <span class="badge fs-6 fw-normal bg-tint-success text-success">Completed</span>
-                                </td>
-                            </tr>
-                        </tbody>
+                        {% for pessoa in pessoas %}
+                        <tr>
+                            <td>{{ pessoa._id }}</td>
+                            <td>{{ pessoa.nome }}</td>
+                            <td>{{ pessoa.telefone }}</td>
+                            <td>{{ pessoa.cpf }}</td>
+                            <td>{{ pessoa.email }}</td>
+                            <td><a href="/excluir/{{ pessoa._id }}">X</a></td>
+                            <td><a href="/atualizar/{{ pessoa._id }}">Atualizar</a></td>
+                        </tr>
+                        {% endfor %}
                     </table>
                 </div>
                 <div class="card-footer text-end">
-                    <a href="#!" class="btn btn-gray">View All Transactions</a>
+                    <a href="/">Voltar</a>
                 </div>
             </div>
         </div>

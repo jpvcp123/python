@@ -22,9 +22,9 @@ class Pessoa(db.Model):
         self.cpf = cpf
         self.email = email
 
-@app.route("/index")
+@app.route("/")
 def index():
-    return render_template("index.html")
+    return render_template("main.html")
 
 @app.route("/cadastrar")
 def cadastrar():
@@ -58,7 +58,7 @@ def excluir(id):
     db.session.commit()
 
     pessoas = Pessoa.query.all()
-    return render_template("lista.html",pessoas=pessoas)
+    return render_template("list.html",pessoas=pessoas)
 
 @app.route("/atualizar/<int:id>", methods=['GET', 'POST'])
 def atualizar(id):
