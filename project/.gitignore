@@ -2,6 +2,9 @@ bin
 include
 lib
 lib64
-pyenv.cfg
+pyvenv.cfg
 
 instance/
+var/
+
+__pycache__

@@ -22,26 +22,67 @@ class Pessoa(db.Model):
         self.cpf = cpf
         self.email = email
 
-# db.create_all()
-
-
-@app.route("/")
+@app.route("/index")
 def index():
     return render_template("index.html")
 
 @app.route("/cadastrar")
 def cadastrar():
-    return render_template("cadastro.html")
+    return render_template("register.html")
 
 @app.route("/cadastro", methods=['GET', 'POST'])
 def cadastro():
     if request.method == "POST":
-        nome = request.form.get("nome")
-        telefone = request.form.get("telefone")
-        cpf = request.form.get("cpf")
-        email = request.form.get("email")
+        nome = request.form.get("Nome")
+        telefone = request.form.get("Telefone")
+        cpf = request.form.get("CPF")
+        email = request.form.get("Email")
+
+        if nome and telefone and cpf and email:
+            p = Pessoa(nome, telefone, cpf, email)
+            db.session.add(p)
+            db.session.commit()
+    
+    return redirect(url_for("index"))
+
+@app.route("/lista")
+def lista():
+    pessoas = Pessoa.query.all()
+    return render_template("list.html",pessoas=pessoas)
+
+@app.route("/excluir/<int:id>")
+def excluir(id):
+    pessoa = Pessoa.query.filter_by(_id=id).first()
+
+    db.session.delete(pessoa)
+    db.session.commit()
+
+    pessoas = Pessoa.query.all()
+    return render_template("lista.html",pessoas=pessoas)
+
+@app.route("/atualizar/<int:id>", methods=['GET', 'POST'])
+def atualizar(id):
+    pessoa = Pessoa.query.filter_by(_id=id).first()
+
+    if request.method == "POST":
+        nome = request.form.get("Nome")
+        telefone = request.form.get("Telefone")
+        cpf = request.form.get("CPF")
+        email = request.form.get("Email")
+
+        if nome and telefone and email:
+            pessoa.nome = nome
+            pessoa.telefone = telefone
+            pessoa.email = email
+
+            db.session.commit()
+
+            return redirect(url_for("lista"))
+    
+    return render_template("update.html", pessoa=pessoa)
+
 
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
-    app.run(debug=True)
+    app.run(host='0.0.0.0', debug = True)
