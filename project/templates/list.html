@@ -61,13 +61,13 @@ table th {
                         </thead>
                         {% for pessoa in pessoas %}
                         <tr>
-                            <td>{{ pessoa._id }}</td>
+                            <td>{{ pessoa.id }}</td>
                             <td>{{ pessoa.nome }}</td>
                             <td>{{ pessoa.telefone }}</td>
                             <td>{{ pessoa.cpf }}</td>
                             <td>{{ pessoa.email }}</td>
-                            <td><a href="/excluir/{{ pessoa._id }}">X</a></td>
-                            <td><a href="/atualizar/{{ pessoa._id }}">Atualizar</a></td>
+                            <td><a href="/excluir/{{ pessoa.id }}">X</a></td>
+                            <td><a href="/atualizar/{{ pessoa.id }}">Atualizar</a></td>
                         </tr>
                         {% endfor %}
                     </table>

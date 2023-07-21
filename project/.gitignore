@@ -8,3 +8,4 @@ instance/
 var/
 
 __pycache__
+.env

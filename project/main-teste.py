@@ -1,26 +1,51 @@
-from flask import Flask, render_template, url_for, redirect, request
-from flask_sqlalchemy import SQLAlchemy
+from flask import Flask, render_template, url_for, redirect, request, flash
+import psycopg2 
+import psycopg2.extras
+import os
+from dotenv import load_dotenv
 
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite'
+app.secret_key = "caramelo-teste"
 
-db = SQLAlchemy(app)
+load_dotenv()
 
-class Pessoa(db.Model):
-    __tablename__= 'cliente'
+DB_HOST = os.getenv("POSTGRES_HOST")
+DB_NAME = "postgres"
+DB_USER = "postgres"
+DB_PASS = os.getenv("POSTGRES_PASSWORD")
 
-    _id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    nome = db.Column(db.String)
-    telefone = db.Column(db.String)
-    cpf = db.Column(db.String)
-    email = db.Column(db.String)
+# DB_HOST = "172.17.0.1"
+# DB_NAME = "postgres"
+# DB_USER = "postgres"
+# DB_PASS = "admin"
 
-    def __init__ (self, nome, telefone, cpf, email): 
-        self.nome = nome
-        self.telefone = telefone
-        self.cpf = cpf
-        self.email = email
+conn = psycopg2.connect(dbname=DB_NAME, user=DB_USER, password=DB_PASS, host=DB_HOST)
+
+table_check_query = "SELECT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_name = 'cliente');"
+
+conn.autocommit = True
+cursor = conn.cursor()
+
+cursor.execute(table_check_query)
+table_exists = cursor.fetchone()[0]
+
+if not table_exists:
+    # If the table doesn't exist, create it
+    sql = '''CREATE TABLE cliente (
+        _id SERIAL PRIMARY KEY,
+        nome VARCHAR(40) NOT NULL,
+        telefone VARCHAR(40) NOT NULL,
+        cpf VARCHAR(40) NOT NULL,
+        email VARCHAR(40) NOT NULL
+    );'''
+    
+    cursor.execute(sql)
+    conn.commit()
+    print("Table 'cliente' created successfully.")
+else: 
+    print("Table 'cliente' already exists.")
+
 
 @app.route("/")
 def index():
@@ -30,59 +55,64 @@ def index():
 def cadastrar():
     return render_template("register.html")
 
-@app.route("/cadastro", methods=['GET', 'POST'])
+@app.route("/cadastro", methods=['POST'])
 def cadastro():
+    cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
     if request.method == "POST":
-        nome = request.form.get("Nome")
-        telefone = request.form.get("Telefone")
-        cpf = request.form.get("CPF")
-        email = request.form.get("Email")
-
-        if nome and telefone and cpf and email:
-            p = Pessoa(nome, telefone, cpf, email)
-            db.session.add(p)
-            db.session.commit()
-    
-    return redirect(url_for("index"))
+        nome = request.form["Nome"]
+        telefone = request.form["Telefone"]
+        cpf = request.form["CPF"]
+        email = request.form["Email"]
+        cur.execute("INSERT INTO cliente (Nome, Telefone, CPF, Email) VALUES (%s,%s,%s,%s)", (nome, telefone, cpf, email))
+        
+        conn.commit()
+        flash('User Added successfully')
+        
+        return redirect(url_for("index"))
 
 @app.route("/lista")
 def lista():
-    pessoas = Pessoa.query.all()
+    
+    cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+    s = "SELECT * FROM cliente"
+    cur.execute(s) 
+    pessoas = cur.fetchall()
+    
     return render_template("list.html",pessoas=pessoas)
 
 @app.route("/excluir/<int:id>")
 def excluir(id):
-    pessoa = Pessoa.query.filter_by(_id=id).first()
+    
+    cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+   
+    cur.execute('DELETE FROM cliente WHERE id = {0}'.format(id))
+    conn.commit()
+    flash('Client Removed Successfully')
 
-    db.session.delete(pessoa)
-    db.session.commit()
-
-    pessoas = Pessoa.query.all()
-    return render_template("list.html",pessoas=pessoas)
+    return redirect(url_for('lista'))
 
 @app.route("/atualizar/<int:id>", methods=['GET', 'POST'])
 def atualizar(id):
-    pessoa = Pessoa.query.filter_by(_id=id).first()
-
-    if request.method == "POST":
-        nome = request.form.get("Nome")
-        telefone = request.form.get("Telefone")
-        cpf = request.form.get("CPF")
-        email = request.form.get("Email")
-
-        if nome and telefone and email:
-            pessoa.nome = nome
-            pessoa.telefone = telefone
-            pessoa.email = email
-
-            db.session.commit()
-
-            return redirect(url_for("lista"))
-    
+    pessoa = "SELECT * FROM cliente"
+    if request.method == 'POST':
+        nome = request.form['Nome']
+        telefone = request.form['Telefone']
+        email = request.form['Email']
+         
+        cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+        cur.execute("""
+            UPDATE cliente
+            SET Nome = %s,
+                Telefone = %s,
+                Email = %s
+            WHERE id = %s
+        """, (nome, telefone, email, id))
+        flash('Student Updated Successfully')
+        conn.commit()
+        return redirect(url_for('lista'))
     return render_template("update.html", pessoa=pessoa)
 
 
 if __name__ == '__main__':
-    with app.app_context():
-        db.create_all()
     app.run(host='0.0.0.0', debug = True)
+    
