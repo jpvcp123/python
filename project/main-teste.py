@@ -15,11 +15,6 @@ DB_NAME = "postgres"
 DB_USER = "postgres"
 DB_PASS = os.getenv("POSTGRES_PASSWORD")
 
-# DB_HOST = "172.17.0.1"
-# DB_NAME = "postgres"
-# DB_USER = "postgres"
-# DB_PASS = "admin"
-
 conn = psycopg2.connect(dbname=DB_NAME, user=DB_USER, password=DB_PASS, host=DB_HOST)
 
 table_check_query = "SELECT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_name = 'cliente');"
@@ -31,7 +26,6 @@ cursor.execute(table_check_query)
 table_exists = cursor.fetchone()[0]
 
 if not table_exists:
-    # If the table doesn't exist, create it
     sql = '''CREATE TABLE cliente (
         _id SERIAL PRIMARY KEY,
         nome VARCHAR(40) NOT NULL,
