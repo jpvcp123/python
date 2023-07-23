@@ -17,4 +17,4 @@ RUN pip install -r requirements.txt --src /usr/local/src
 COPY /project .
 
 EXPOSE 5000
-CMD [ "python", "main.py" ]
+CMD [ "python", "main-teste.py" ]

@@ -27,7 +27,7 @@ table_exists = cursor.fetchone()[0]
 
 if not table_exists:
     sql = '''CREATE TABLE cliente (
-        _id SERIAL PRIMARY KEY,
+        id SERIAL PRIMARY KEY,
         nome VARCHAR(40) NOT NULL,
         telefone VARCHAR(40) NOT NULL,
         cpf VARCHAR(40) NOT NULL,
