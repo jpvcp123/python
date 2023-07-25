@@ -31,7 +31,7 @@ global:
       postgresPassword: ""
       username: ""
       password: ""
-      database: ""
+      database: "postgres"
       existingSecret: ""
       secretKeys:
         adminPasswordKey: ""
@@ -136,7 +136,7 @@ auth:
   password: ""
   ## @param auth.database Name for a custom database to create
   ##
-  database: ""
+  database: "postgres"
   ## @param auth.replicationUsername Name of the replication user
   ##
   replicationUsername: repl_user

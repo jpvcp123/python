@@ -17,6 +17,21 @@ spec:
       containers:
       - name: app
         imagePullPolicy: Always
-        image: jpvcp123/python-app:latest        
+        image: jpvcp123/python-app:3.0
+        resources:
+          limits:
+            cpu: 400m
+            memory: 400Mi
+          requests:
+            cpu: 200m     
+            memory: 200Mi     
+        env:
+          - name: POSTGRES_HOST
+            value: my-postgresql
+          - name: POSTGRES_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: my-postgresql
+                key: postgres-password
         ports:
         - containerPort: 5000
