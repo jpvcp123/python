@@ -2,10 +2,11 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: app
+  namespace: myapp
   labels:
     app: app
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: app
@@ -31,7 +32,7 @@ spec:
           - name: POSTGRES_PASSWORD
             valueFrom:
               secretKeyRef:
-                name: my-postgresql
-                key: postgres-password
+                name: mysecret
+                key: POSTGRES_PASSWORD
         ports:
         - containerPort: 5000
