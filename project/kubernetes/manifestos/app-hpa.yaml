@@ -2,7 +2,6 @@ apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
   name: app-hpa
-  namespace: myapp
 spec:
   minReplicas: 1
   maxReplicas: 5
