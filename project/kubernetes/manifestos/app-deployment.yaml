@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: app
+  namespace: my-app
   labels:
     app: app
 spec:
@@ -27,7 +28,7 @@ spec:
             memory: 200Mi     
         env:
           - name: POSTGRES_HOST
-            value: my-postgresql
+            value: my-postgresql.postgresql.svc.cluster.local
           - name: POSTGRES_PASSWORD
             valueFrom:
               secretKeyRef:
