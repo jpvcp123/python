@@ -10,10 +10,10 @@ app.secret_key = "caramelo-teste"
 
 load_dotenv()
 
-DB_HOST = os.getenv("POSTGRES_HOST")
-DB_NAME = "postgres"
-DB_USER = "postgres"
-DB_PASS = os.getenv("POSTGRES_PASSWORD")
+DB_HOST =os.getenv("POSTGRES_HOST")
+DB_NAME ="postgres"
+DB_USER ="postgres"
+DB_PASS =os.getenv("POSTGRES_PASSWORD")
 
 conn = psycopg2.connect(dbname=DB_NAME, user=DB_USER, password=DB_PASS, host=DB_HOST)
 

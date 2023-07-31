@@ -17,7 +17,7 @@ spec:
       containers:
       - name: app
         imagePullPolicy: Always
-        image: jpvcp123/python-app:3.0
+        image: jpvcp123/python-app:6.0
         resources:
           limits:
             cpu: 400m
@@ -27,7 +27,7 @@ spec:
             memory: 200Mi     
         env:
           - name: POSTGRES_HOST
-            value: my-postgresql.default.svc.cluster.local
+            value: my-postgresql
           - name: POSTGRES_PASSWORD
             valueFrom:
               secretKeyRef:
