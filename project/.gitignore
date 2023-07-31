@@ -9,4 +9,3 @@ var/
 
 __pycache__
 .env
-secrets.yaml
