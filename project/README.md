@@ -53,17 +53,29 @@ helm install metrics-server metrics-server/metrics-server -f metrics-values.yaml
 helm install my-postgresql bitnami/postgresql -f values-postgresql.yaml --namespace=postgresql --create-namespace 
 ```
 
+Run the following commands to deploy the ArgoCD
+
+``` bash
+kubectl create namespace argocd
+```
+
+```bash
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+```
+
 Create the namespace for your application in your cluster:
 
 ``` bash
 kubectl create namespace my-app
 ```
 
-Go to the folder <b>/project/kubernetes</b> and apply the deployments, hpa, service and secrets in yout cluster:
+Go to the folder <b>/kubernetes</b> and apply the  secrets in yout cluster:
 
 ```bash
-kubectl apply manifestos/
+kubectl apply -k secrets/
 ```
+After applying the secrets you will be able to deploy your application using the <b>ArgoCD</b>
+
 To access the application we need to port forward the service, first get the pod's name:
 ``` bash
 kubectl get pods -n my-app
@@ -78,3 +90,4 @@ kubectl port-forward pods/<pods name> 5000:5000 -n my-app
 Access the application in the browser at: <b>localhost:5000</b>
 
 - be happy :)
+
