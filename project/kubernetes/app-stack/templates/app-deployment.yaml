@@ -18,7 +18,7 @@ spec:
       containers:
       - name: app
         imagePullPolicy: Always
-        image: jpvcp123/python-app:6.0
+        image: {{ .Values.global.ImageName }}:{{ .Values.global.ImageVersion }}
         resources:
           limits:
             cpu: 400m
