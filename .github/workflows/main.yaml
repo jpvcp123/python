@@ -40,7 +40,7 @@ jobs:
         id: time
         uses: nanzm/get-time-action@master
         with:
-          format: "DD-MM-YYYY"
+          format: "DD-MM-YYYY-HH-mm"
           timeZone: 'UTC+3'
 
       - name: Build checkin image
@@ -54,7 +54,7 @@ jobs:
         with:
           branch: ${{ steps.branch.outputs.branch }}
           targetBranch: ${{ steps.branch.outputs.branch }}
-          valueFile: 'project/kubernetes/app-stack/values.yaml'
+          valueFile: 'kubernetes/app-stack/values.yaml'
           commitChange: true
           message: ":recycle: refactor: Change helm chart values ${{steps.time.outputs.time}}"
           changes: |
