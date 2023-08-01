@@ -18,3 +18,4 @@ COPY /project .
 
 EXPOSE 5000
 CMD [ "python", "main-teste.py" ]
+
