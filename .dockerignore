@@ -1,2 +1,5 @@
 .env
 kubernetes/*
+/instance/**
+/bin/**
+/var/**

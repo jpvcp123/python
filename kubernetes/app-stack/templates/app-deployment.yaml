@@ -18,7 +18,9 @@ spec:
       containers:
       - name: app
         imagePullPolicy: Always
-        image: jpvcp123/python-app:6.0
+        image: jpvcp123/python-app:01-08-2023-09-12
+        ports:
+        - containerPort: 5000
         resources:
           limits:
             cpu: 400m
@@ -26,13 +28,17 @@ spec:
           requests:
             cpu: 200m     
             memory: 200Mi     
-        env:
-          - name: POSTGRES_HOST
-            value: my-postgresql.postgresql.svc.cluster.local
-          - name: POSTGRES_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: mysecret
-                key: POSTGRES_PASSWORD
-        ports:
-        - containerPort: 5000
+        envFrom:
+        - secretRef:
+            name: myapp-secrets
+        volumeMounts:
+        - name: app-volume
+          mountPath: /project/.env
+          subPath: .env
+      volumes: 
+      - name: app-volume
+        secret:
+          secretName: myapp-secrets
+          items:
+            - key: .env
+              path: .env
