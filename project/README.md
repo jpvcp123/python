@@ -43,7 +43,22 @@ Start your local cluster:
 minikube start
 ```
 
-Go to the <b>/project/kubernetes/charts</b> folder and run the following commands to install the <b>metrics-server</b> and the <b>postgresql database</b> in your k8s cluster:
+Add the helm repos used in the project:
+
+```bash
+helm repo add argo https://argoproj.github.io/argo-helm
+```
+
+```bash
+helm repo add argo https://argoproj.github.io/argo-helm
+```
+
+```bash
+helm repo add argo https://argoproj.github.io/argo-helm
+```
+
+
+Go to the <b>/project/kubernetes/charts</b> folder and run the following commands to install the <b>metrics-server</b>, <b>ArgoCD</b> and the <b>postgresql database</b> in your k8s cluster:
 
 ``` bash
 helm install metrics-server metrics-server/metrics-server -f metrics-values.yaml --namespace=kube-system
@@ -53,14 +68,8 @@ helm install metrics-server metrics-server/metrics-server -f metrics-values.yaml
 helm install my-postgresql bitnami/postgresql -f values-postgresql.yaml --namespace=postgresql --create-namespace 
 ```
 
-Run the following commands to deploy the ArgoCD
-
-``` bash
-kubectl create namespace argocd
-```
-
 ```bash
-kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+helm install argocd argo/argo-cd -f argocd-values.yaml --namespace=argocd --create-namespace
 ```
 
 Create the namespace for your application in your cluster:
@@ -90,4 +99,3 @@ kubectl port-forward pods/<pods name> 5000:5000 -n my-app
 Access the application in the browser at: <b>localhost:5000</b>
 
 - be happy :)
-
