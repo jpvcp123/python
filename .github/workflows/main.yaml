@@ -3,7 +3,7 @@ name: Build & push app image
 on:
   push:
     branches:
-    - 'dev'
+    - 'main'
     paths:
     - 'project/**'
     - '.dockerignore'
