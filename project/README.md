@@ -98,4 +98,16 @@ kubectl port-forward pods/<pods name> 5000:5000 -n my-app
 
 Access the application in the browser at: <b>localhost:5000</b>
 
+<b>OBS: It is also possible to debloy the KubeClarity to check the vulnerabilities of your images, run the following commands:</b>
+
+```bash
+helm repo add kubeclarity https://openclarity.github.io/kubeclarity
+```
+
+```bash
+helm install --values kubeclarity-values.yaml --create-namespace kubeclarity kubeclarity/kubeclarity -n kubeclarity
+```
+
+- The kubeclarity-values.yaml is in the folder <b>/kubernetes/charts</b>
+
 - be happy :)
