@@ -17,8 +17,8 @@ spec:
     spec:
       containers:
       - name: app
-        imagePullPolicy: Always
-        image: {{ .Values.global.checkinImageName }}:{{ .Values.global.checkinImageVersion }}
+        imagePullPolicy: IfNotPresent
+        image: {{ .Values.global.ImageName }}:{{ .Values.global.ImageVersion }}
         ports:
         - containerPort: 5000
         resources:
