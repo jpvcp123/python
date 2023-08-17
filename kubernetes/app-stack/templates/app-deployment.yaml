@@ -18,7 +18,7 @@ spec:
       containers:
       - name: app
         imagePullPolicy: Always
-        image: jpvcp123/python-app:01-08-2023-09-12
+        image: {{ .Values.global.checkinImageName }}:{{ .Values.global.checkinImageVersion }}
         ports:
         - containerPort: 5000
         resources:

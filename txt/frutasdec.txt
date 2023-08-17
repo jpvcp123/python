@@ -1,3 +1,0 @@
-bananas = int(input("Escolha a quantidade de bananas compradas por dia: "))
-abacates = int(input("Escolha a quantidade de abacates comprada por dia no final de semana: "))
-print(f"Você tem {bananas*7*4*12*10} bananas e {abacates*3*4*12*10} abacates por década. E {bananas*7*4*12*10 + abacates*3*4*12*10} frutas no total por década.")

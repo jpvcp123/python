@@ -1,2 +1,0 @@
-num1 = int(input("Digite o raio do círculo:"))
-print(f"A área do circulo é {3.14*num1**2}")

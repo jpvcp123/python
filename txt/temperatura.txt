@@ -1,3 +1,0 @@
-temp = int(input("Digite a temperatura em Fahrenheit: "))
-celsius = 5*((temp-32)/9)
-print(f"A temperatura em celsius é: {celsius:,.2f} C")
