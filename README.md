@@ -81,7 +81,7 @@ kubectl create namespace my-app
 Go to the folder <b>/kubernetes</b> and apply the  secrets in yout cluster:
 
 ```bash
-kubectl apply -k secrets/
+kubectl apply -k secrets/ -n my-app
 ```
 After applying the secrets you will be able to deploy your application using the <b>ArgoCD</b>
 
