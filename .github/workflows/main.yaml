@@ -11,7 +11,7 @@ on:
 
 jobs:
 
-  :
+  CI:
     permissions: write-all
     runs-on: ubuntu-latest
 
