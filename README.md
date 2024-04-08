@@ -46,11 +46,11 @@ minikube start
 Add the helm repos used in the project:
 
 ```bash
-helm repo add argo https://argoproj.github.io/argo-helm
+helm repo add metrics-server https://kubernetes-sigs.github.io/metrics-server/
 ```
 
 ```bash
-helm repo add argo https://argoproj.github.io/argo-helm
+helm repo add bitnami https://charts.bitnami.com/bitnami
 ```
 
 ```bash
